@@ -74,3 +74,37 @@ export const createNewPost = async (authorId: string, content: string, imageUrl?
     }
   }
 };
+
+export const commentOnPost = async (postId: string, userId: string, text: string, io: SocketIOServer)=>{
+  let updatedPost;
+    try {
+    const post = await findPostById(postId);
+
+    if (!post) {
+     throw new HttpError(404, 'Post not found');
+    }
+
+    const comment = { user: new Types.ObjectId(userId), text };
+    const updateCommentPromise =updatePost(postId, { $push: { comments: comment } } as any);
+
+    updatedPost = await updateCommentPromise;
+
+     // Send notification asynchronously (does not block post update)
+
+     if (post.author.toString() !== userId) {
+      sendNotification(post.author.toString(), 'comment', `Your post was commented on by ${userId}`)
+     .catch(notificationError => {
+      console.error('Failed to send notification:', notificationError);
+          });
+      }
+   
+      return updatedPost;
+  } catch (error) {
+    console.error('Error commenting on  post:', error);
+    if (error instanceof HttpError) {
+    throw error; 
+    } else {
+      throw new HttpError(500, 'Failed to comment on post');
+    }
+  }
+}
