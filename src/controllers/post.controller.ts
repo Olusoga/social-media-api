@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { commentOnPost, createNewPost, getFeedPosts, likePost} from '../services/post.service';
 import { HttpError, isHttpError } from '../utils/error-handler';
-import {get} from 'lodash'
 
 export const createPost = async (req: Request, res: Response) => {
     const { content, imageUrl, videoUrl } = req.body;
