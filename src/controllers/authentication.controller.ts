@@ -34,7 +34,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       res.status(200).json({...user, token });
     }
   } catch (error) {
-    if (error instanceof HttpError) {
+    if (isHttpError(error)) {
       res.status(error.statusCode).json({ error: error.message });
     } else {
       console.error('Unhandled error:', error);
