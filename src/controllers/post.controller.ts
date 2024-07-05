@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { createNewPost } from '../services/post.service';
+import { createNewPost, getFeedPosts} from '../services/post.service';
 import { HttpError, isHttpError } from '../utils/error-handler';
 
 export const createPost = async (req: Request, res: Response) => {
@@ -20,4 +20,16 @@ export const createPost = async (req: Request, res: Response) => {
           res.status(500).json({ error: 'Server error' });
         }
     }
+    
 }
+
+export const getFeed = async (req: Request, res: Response) => {
+  const { page = 1, limit = 10 } = req.query;
+  try {
+    const user = req.user?._id.toString();
+    const posts = await getFeedPosts(user, Number(page), Number(limit));
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+};
