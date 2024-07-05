@@ -5,7 +5,7 @@ export interface IPost extends Document {
   content: string;
   imageUrl?: string;
   videoUrl?: string;
-  likes: Schema.Types.ObjectId[];
+  likes: Types.ObjectId[];
   comments: { user: Schema.Types.ObjectId; text: string }[];
 }
 
