@@ -2,8 +2,9 @@ import express from 'express';
 import http from 'http';
 import { config } from 'dotenv';
 import { connectDB } from './config/db';
-import userRoutes from './routes/user.route';
+import authRoutes from './routes/auth.route';
 import postRoutes from './routes/post.route'
+import userRoutes from './routes/user.route'
 import { errorHandler } from './middlewares/errorhandlerMiddleware';
 
 config();
@@ -11,6 +12,7 @@ const app = express();
 const server = http.createServer(app);
 app.use(express.json());
 
+app.use('/api/auth', authRoutes)
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes)
 

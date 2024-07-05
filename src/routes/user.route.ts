@@ -1,11 +1,8 @@
-import { Router } from 'express';
-import { register, login } from '../controllers/authentication.controller';
-import { signupSchema } from '../middlewares/validations';
-import { validateRequest } from '../middlewares/validatioRequest';
+import express from 'express';
+import { followUserController } from '../controllers/user.controller';
 
-const router = Router();
+const router = express.Router();
 
-router.post('/signup', validateRequest(signupSchema), register)
-router.post('/login', login);
+router.post('/:userId/follow/:userToFollowId', followUserController);
 
 export default router;
