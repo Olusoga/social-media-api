@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
-import { createNewPost, getFeedPosts} from '../services/post.service';
+import { createNewPost, getFeedPosts, likePost} from '../services/post.service';
 import { HttpError, isHttpError } from '../utils/error-handler';
+import {get} from 'lodash'
 
 export const createPost = async (req: Request, res: Response) => {
     const { content, imageUrl, videoUrl } = req.body;
@@ -32,4 +33,24 @@ export const getFeed = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({ error: 'Server error' });
   }
+  
 };
+
+export const likePostController = async (req: Request, res: Response) => {
+  const { postId } = req.body;
+  const userId = req.user?.id;
+  try {
+    await likePost(postId, userId, req.app.get('io')); 
+
+    // If likePost succeeds, send success response
+    res.status(200).json({ message: 'Post liked successfully' });
+  } catch (error) {
+    console.error('Error liking post:', error);
+
+    if (isHttpError(error)) {
+      res.status(error.statusCode).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: 'Failed to like post' });
+    }
+  }
+}
