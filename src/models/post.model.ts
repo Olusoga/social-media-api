@@ -1,8 +1,7 @@
-// src/models/Post.ts
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document, Types } from 'mongoose';
 
-interface IPost extends Document {
-  author: Schema.Types.ObjectId;
+export interface IPost extends Document {
+  author: Types.ObjectId;
   content: string;
   imageUrl?: string;
   videoUrl?: string;
@@ -22,7 +21,14 @@ const PostSchema = new Schema<IPost>({
       text: { type: String, required: true },
     },
   ],
-}, { timestamps: true });
+  
+},
+ { timestamps: true },
+ 
+);
+
+//remove version key from the schema
+PostSchema.set('versionKey', false);
 
 const Post = model<IPost>('Post', PostSchema);
 export default Post;

@@ -3,7 +3,8 @@ import http from 'http';
 import { config } from 'dotenv';
 import { connectDB } from './config/db';
 import userRoutes from './routes/user.route';
-import { errorHandler } from './middleware/errorhandlerMiddleware';
+import postRoutes from './routes/post.route'
+import { errorHandler } from './middlewares/errorhandlerMiddleware';
 
 config();
 const app = express();
@@ -11,6 +12,7 @@ const server = http.createServer(app);
 app.use(express.json());
 
 app.use('/api/users', userRoutes);
+app.use('/api/posts', postRoutes)
 
 app.use(errorHandler);
 
