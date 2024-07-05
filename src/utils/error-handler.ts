@@ -12,3 +12,6 @@ export class HttpError extends Error {
     return new HttpError(statusCode, message);
   };
   
+ export const isHttpError = (error: any): error is HttpError => {
+    return error instanceof HttpError;
+  };

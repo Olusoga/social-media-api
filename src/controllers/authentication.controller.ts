@@ -1,10 +1,7 @@
 import { Request, Response } from 'express';
 import { registerUser, authenticateUser } from '../services/user.service';
-import { HttpError } from '../utils/error-handler';
+import {  isHttpError } from '../utils/error-handler';
 
-const isHttpError = (error: any): error is HttpError => {
-    return error instanceof HttpError;
-  };
 
 export const register = async (req: Request, res: Response): Promise<void> => {
     const { username, email, password } = req.body;

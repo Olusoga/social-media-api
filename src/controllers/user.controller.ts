@@ -1,10 +1,7 @@
 import { Request, Response } from 'express';
 import { followUser } from '../services/user.service';
-import { HttpError } from '../utils/error-handler';
+import { HttpError, isHttpError } from '../utils/error-handler';
 
-const isHttpError = (error: any): error is HttpError => {
-    return error instanceof HttpError;
-  }
 export const followUserController = async (req: Request, res: Response): Promise<void> => {
   const { userId, userToFollowId } = req.params;
 

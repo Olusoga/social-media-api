@@ -1,10 +1,6 @@
 import { Request, Response } from 'express';
 import { createNewPost } from '../services/post.service';
-import { HttpError } from '../utils/error-handler';
-
-const isHttpError = (error: any): error is HttpError => {
-    return error instanceof HttpError;
-  }
+import { HttpError, isHttpError } from '../utils/error-handler';
 
 export const createPost = async (req: Request, res: Response) => {
     const { content, imageUrl, videoUrl } = req.body;
