@@ -1,5 +1,5 @@
 import { Server as SocketIOServer } from 'socket.io';
-import { createPost, findPostById, updatePost, findPostsByAuthorIds } from '../repositories/post.repository';
+import { createPost, findPostById, updatePost, findPostsByAuthorIds, findAllPosts } from '../repositories/post.repository';
 import { findUserById } from '../repositories/user.repository';
 import { IPost } from '../models/post.model';
 import { HttpError } from '../utils/error-handler';
@@ -127,8 +127,10 @@ export const getPostWithCounts = async (postId: string): Promise<any> => {
       content: post.content,
       imageUrl: post.imageUrl,
       videoUrl: post.videoUrl,
-      likes: likeCount,
-      comments: commentCount,
+      likes : post.likes,
+      comment:post.comments,
+      likesCount: likeCount,
+      commentsCount: commentCount,
     };
 
     return response;
@@ -136,4 +138,23 @@ export const getPostWithCounts = async (postId: string): Promise<any> => {
     console.error('Error fetching post with counts:', error);
     throw new HttpError(500, 'Failed to fetch post with counts');
   }
+};
+
+export const getPostsWithCounts = async (page: number, limit: number): Promise<any[]> => {
+  const posts = await findAllPosts(page, limit);
+
+  // Calculate likes and comments count for each post
+  const postsWithCounts = posts.map((post: any) => ({
+    _id: post._id,
+    author: post.author,
+    content: post.content,
+    imageUrl: post.imageUrl,
+    videoUrl: post.videoUrl,
+    likesCount: post.likes.length,
+    commentsCount: post.comments.length,
+    createdAt: post.createdAt,
+    updatedAt: post.updatedAt,
+  }));
+
+  return postsWithCounts;
 };
