@@ -5,13 +5,35 @@ import { IPost } from '../models/post.model';
 import { HttpError } from '../utils/error-handler';
 import mongoose, { Types } from 'mongoose';
 import { sendNotification } from './notification.service';
+import { detectMentions } from '../utils/detectmentions';
 const { ObjectId } = Types;
 
 export const createNewPost = async (authorId: string, content: string, imageUrl?: string, videoUrl?: string): Promise<IPost> => {
-    
-    const authorObjectId = new ObjectId(authorId); 
-    return createPost({ author: authorObjectId, content, imageUrl, videoUrl });
+  const authorObjectId = new ObjectId(authorId); 
+
+  const mentionedUserIds = detectMentions(content);
+
+  // Create post object with detected mentions
+  const post: Partial<IPost> = {
+    author: authorObjectId,
+    content,
+    imageUrl,
+    videoUrl,
   };
+
+  const savedPost = await createPost(post);
+
+  // Send notifications asynchronously to mentioned users(does not block post creation)
+  await Promise.all(mentionedUserIds.map(async (userId) => {
+    const message = `You were mentioned in a post by ${authorId}`;
+    await sendNotification(userId, 'mention', message)
+      .catch(notificationError => {
+        console.error(`Failed to send mention notification to user ${userId}:`, notificationError);
+      });
+  }));
+
+  return savedPost;
+};
 
   export const getFeedPosts = async (userId: string, page: number, limit: number): Promise<IPost[]> => {
     try {
