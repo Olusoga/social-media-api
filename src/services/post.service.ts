@@ -108,3 +108,32 @@ export const commentOnPost = async (postId: string, userId: string, text: string
     }
   }
 }
+
+export const getPostWithCounts = async (postId: string): Promise<any> => {
+  try {
+    // Find the post by postId and populate 'likes' and 'comments' fields
+    const post = await findPostById(postId)
+    if (!post) {
+      throw new Error('Post not found');
+    }
+
+    // Calculate number of likes and comments
+    const likeCount = post.likes.length;
+    const commentCount = post.comments.length;
+    // Construct response object with post details and counts
+    const response = {
+      _id: post._id,
+      author: post.author,
+      content: post.content,
+      imageUrl: post.imageUrl,
+      videoUrl: post.videoUrl,
+      likes: likeCount,
+      comments: commentCount,
+    };
+
+    return response;
+  } catch (error) {
+    console.error('Error fetching post with counts:', error);
+    throw new Error('Failed to fetch post with counts');
+  }
+};

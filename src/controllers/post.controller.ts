@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { commentOnPost, createNewPost, getFeedPosts, likePost} from '../services/post.service';
+import { commentOnPost, createNewPost, getFeedPosts, getPostWithCounts, likePost} from '../services/post.service';
 import { HttpError, isHttpError } from '../utils/error-handler';
 
 export const createPost = async (req: Request, res: Response) => {
@@ -72,3 +72,15 @@ export const commentPostController =async (req: Request, res: Response) => {
     }
   }
 }
+
+export const getPostWithCountsController = async (req: Request, res: Response): Promise<void> => {
+  const postId = req.params.postId;
+
+  try {
+    const postWithCounts = await getPostWithCounts(postId);
+    res.json(postWithCounts);
+  } catch (error) {
+    console.error('Error in getPostWithCountsController:', error);
+    res.status(500).json({ error: 'Failed to fetch post with counts' });
+  }
+};

@@ -22,8 +22,9 @@ export const findPostsByAuthorIds = async (authorIds: mongoose.Types.ObjectId[],
   }
 };
 
-export const findPostById = async (postId: string): Promise<IPost | null> => {
-  return Post.findById(postId);
+export const findPostById = async (postId: string) => {
+  return Post.findById(postId)
+ 
 };
 
 export const updatePost = async (postId: string, updateData: Partial<IPost>): Promise<IPost | null> => {
