@@ -9,7 +9,6 @@ import userRoutes from './routes/user.route';
 import { errorHandler } from './middlewares/errorhandlerMiddleware';
 
 config();
-
 const app = express();
 const server = http.createServer(app);
 const io = new SocketIOServer(server);

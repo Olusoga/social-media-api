@@ -21,3 +21,7 @@ export const findUserById = async (id: string): Promise<IUser | null> => {
 export const followUserRepo = async (userId: string, userToFollowId: string): Promise<void> => {
   await User.findByIdAndUpdate(userId, { $addToSet: { following: userToFollowId } }).exec();
 }
+
+export function prototype(prototype: any, arg1: string) {
+    throw new Error('Function not implemented.');
+}
