@@ -60,23 +60,24 @@ To run the API locally, follow these steps:
    git clone https://github.com/Olusoga/social-media-api
    cd social-media-platform-backend
 
+```
 **Install dependecies**
    ```bash
    npm install
-
+```
 **Set up environment variables:**
    Create a .env file in the root directory and add necessary environment variables like PORT, MONGODB_URI, JWT_SECRET, etc.
 
 **Run Server**
    ```bash
    npm start
-
+```
 **Access API**
    The API will be accessible at http://localhost:5000/api.
 
 ## API Documentation
    Detailed API endpoints and their functionalities are documented here. https://documenter.getpostman.com/view/19781070/2sA3e1Bq8m
-   
+
 ## Testing
    Unit Tests: Ensure code functionality with unit tests.
    Integration Tests: Verify communication between different components.
@@ -84,7 +85,7 @@ To run the API locally, follow these steps:
 **To run tests:**
 ```bash
   npm test
-
+```
 ## Contributing
    Contributions are welcome! Fork the repository and submit a pull request with your improvements.
 
