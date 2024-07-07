@@ -7,11 +7,15 @@ import authRoutes from './routes/auth.route';
 import postRoutes from './routes/post.route';
 import userRoutes from './routes/user.route';
 import { errorHandler } from './middlewares/errorhandlerMiddleware';
+//import { connectRedis } from './utils/redis'
+
+
 
 config();
 const app: express.Application = express();
 const server = http.createServer(app);
 const io = new SocketIOServer(server);
+
 
 // Middleware
 app.use(express.json());
@@ -25,6 +29,7 @@ const PORT = process.env.PORT || 5000;
 // Start server function
 const startServer = async () => {
   try {
+    //await connectRedis()
     await connectDB();
     server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
   } catch (error) {
