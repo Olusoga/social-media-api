@@ -6,10 +6,10 @@ import { validate } from '../middlewares/validatioRequest';
 
 const router = Router();
 
-router.get('/', getAllPostswithCounts)
-router.get('/:postId', getPostWithCountsController)
+router.get('/count', getAllPostswithCounts)
+router.get('/:postId/count', getPostWithCountsController)
 router.post('/', auth, validate(createPostValidationSchema),  createPost);
-router.get('/feeds', auth, getFeed)
+router.get('/postfeeds', auth, getFeed)
 router.post('/like', auth, likePostController)
 router.post('/comment', auth, commentPostController)
 
