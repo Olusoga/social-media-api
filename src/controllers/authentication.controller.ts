@@ -26,16 +26,16 @@ export const login = async (req: Request, res: Response): Promise<void> => {
   try {
     const { user, token } = await authenticateUser(email, password);
     if (!token) {
-      res.status(401).json({ error: 'Authentication failed' });
+      res.status(401).json({ message: 'Authentication failed' });
     } else {
-      res.status(200).json({...user, token });
+      res.status(200).json({...user, token, message: 'Login successful' });
     }
   } catch (error) {
     if (isHttpError(error)) {
-      res.status(error.statusCode).json({ error: error.message });
+      res.status(error.statusCode).json({ message: error.message });
     } else {
       console.error('Unhandled error:', error);
-      res.status(500).json({ error: 'Server error' });
+      res.status(500).json({ message: 'Server error' });
     }
   }
 };

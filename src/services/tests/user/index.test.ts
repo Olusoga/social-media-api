@@ -1,4 +1,4 @@
-import { authenticateUser, followUser, registerUser } from '../../../services/user.service';
+import { authenticateUser, followUser, registerUser } from '../../user.service';
 import { createUser, findUserByEmail, findUserById, followUserRepo } from '../../../repositories/user.repository';
 import { generateMockUser } from '../fixtures/user';
 import jwt from 'jsonwebtoken';

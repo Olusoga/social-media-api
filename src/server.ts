@@ -9,7 +9,7 @@ import userRoutes from './routes/user.route';
 import { errorHandler } from './middlewares/errorhandlerMiddleware';
 
 config();
-const app = express();
+const app: express.Application = express();
 const server = http.createServer(app);
 const io = new SocketIOServer(server);
 
@@ -59,4 +59,4 @@ app.get('/checkSocketStatus', (req, res) => {
 });
 
 // Export app and io for use in other modules (if needed)
-export { app, io };
+export { server, app, io };
