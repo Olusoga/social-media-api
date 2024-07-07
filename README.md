@@ -15,7 +15,7 @@ Welcome to the RESTful API for a basic social media platform. This project aims 
 
 ## Introduction
 
-In this project, we've built a backend API using Express.js and TypeScript, with MongoDB as the database solution. The API supports various functionalities including user management, posts and feed management, likes and comments on posts, and notifications.
+In this project, I've built a backend API using Express.js and TypeScript, with MongoDB as the database solution. The API supports various functionalities including user management, posts and feed management, likes and comments on posts, and notifications.
 
 ## Functionality
 
