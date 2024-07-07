@@ -7,8 +7,8 @@
     "skipLibCheck": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "typeRoots": ["./src/types", "./node_modules/@types"] 
+    "typeRoots": ["./src/types", "./node_modules/@types", "jest", "node"],
   },
-  "include": ["src/**/*.ts", "types/**/*.d.ts"],
+  "include": ["src/**/*.ts", "types/**/*.d.ts", "index.d.ts"],
   "exclude": ["node_modules"]
 }
