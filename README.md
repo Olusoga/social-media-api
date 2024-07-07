@@ -1,6 +1,6 @@
 # Social Media Platform Backend API
 
-Welcome to the Backend Engineer Assessment for building a RESTful API for a basic social media platform. This project aims to facilitate user interactions, post management, and notifications within the platform.
+Welcome to the RESTful API for a basic social media platform. This project aims to facilitate user interactions, post management, and notifications within the platform.
 
 ## Table of Contents
 
