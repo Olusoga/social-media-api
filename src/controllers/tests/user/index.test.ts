@@ -6,7 +6,7 @@ import  mockAuthMiddleware from './fixtures/mockAuthMiddleware';
     __esModule: true,
     default: mockAuthMiddleware, 
   }));
-  
+
   import { server } from '../../../server';  
   import { HttpError } from '../../../utils/error-handler';
 
@@ -27,8 +27,8 @@ describe('Follow User API', () => {
     
         const userToFollowId = 'userToFollowId';
         const response = await request(server)
-          .post(`/api/users/${userToFollowId}/follow`)
-          .set('Authorization', 'Bearer validToken');
+        .post(`/api/users/${userToFollowId}/follow`)
+        .set('Authorization', 'Bearer validToken');
     
         expect(response.status).toBe(200);
         expect(response.body.message).toBe('User followed successfully');
@@ -40,8 +40,8 @@ describe('Follow User API', () => {
     
         const userToFollowId = 'userToFollowId';
         const response = await request(server)
-          .post(`/api/users/${userToFollowId}/follow`)
-          .set('Authorization', 'Bearer validToken');
+        .post(`/api/users/${userToFollowId}/follow`)
+        .set('Authorization', 'Bearer validToken');
     
         expect(response.status).toBe(404);
         expect(response.body.message).toBe('User not found');
@@ -53,8 +53,8 @@ describe('Follow User API', () => {
     
         const userToFollowId = 'userToFollowId';
         const response = await request(server)
-          .post(`/api/users/${userToFollowId}/follow`)
-          .set('Authorization', 'Bearer validToken');
+        .post(`/api/users/${userToFollowId}/follow`)
+        .set('Authorization', 'Bearer validToken');
     
         expect(response.status).toBe(409);
         expect(response.body.message).toBe('Already following this user');
@@ -66,8 +66,8 @@ describe('Follow User API', () => {
     
         const userToFollowId = 'userToFollowId';
         const response = await request(server)
-          .post(`/api/users/${userToFollowId}/follow`)
-          .set('Authorization', 'Bearer validToken');
+        .post(`/api/users/${userToFollowId}/follow`)
+        .set('Authorization', 'Bearer validToken');
     
         expect(response.status).toBe(500);
         expect(response.body.message).toBe('Internal Server Error');
