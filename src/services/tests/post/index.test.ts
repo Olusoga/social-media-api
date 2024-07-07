@@ -1,5 +1,5 @@
-import { createNewPost } from '../../../services/post.service';
-import {  sendNotification } from '../../../services/notification.service'
+import { createNewPost } from '../../post.service';
+import {  sendNotification } from '../../notification.service'
 import { createPost } from '../../../repositories/post.repository';
 import { detectMentions } from '../../../utils/detectmentions';
 import { generateMockPost } from '../fixtures/post';

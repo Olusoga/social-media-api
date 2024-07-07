@@ -35,7 +35,7 @@ export const authenticateUser = async (email: string, password: string): Promise
       
       const formattedUser = formatUser(user);
   
-      return {  user: formattedUser, token };
+      return   {  user: formattedUser, token };
     } catch (error) {
       console.error('Error authenticating user:', error);
       throw error;

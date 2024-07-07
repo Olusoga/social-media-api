@@ -4,6 +4,6 @@ import auth from '../middlewares/auth';
 
 const router = express.Router();
 
-router.post('/follow/:userToFollowId',auth, followUserController);
+router.post('/:userToFollowId/follow',auth, followUserController);
 
 export default router;
