@@ -39,7 +39,7 @@ In this project, we've built a backend API using Express.js and TypeScript, with
 
 ### Notifications
 
-- **Real-time Notifications**: Users receive notifications for mentions, likes, and comments using websockets or push notifications.
+- **Real-time Notifications**: Users receive notifications for mentions, likes, and comments using websockets.
 
 ## Technical Specifications
 
@@ -65,8 +65,14 @@ To run the API locally, follow these steps:
    ```bash
    npm install
 ```
-**Set up environment variables:**
-   Create a .env file in the root directory and add necessary environment variables like PORT, MONGODB_URI, JWT_SECRET, etc.
+## Set up environment variables:
+Create a `.env` file in the root directory and add the necessary environment variables like:
+
+- `PORT`
+- `MONGODB_URI`
+- `JWT_SECRET`
+- (any other required variables)
+
 
 **Run Server**
    ```bash
