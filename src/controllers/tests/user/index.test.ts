@@ -1,6 +1,6 @@
 import request from 'supertest';
 import{followUser} from '../../../services/user.service';
-import  mockAuthMiddleware from './fixtures/mockAuthMiddleware';
+import  mockAuthMiddleware from '../fixtures/mockAuthMiddleware';
 
   jest.mock('../../../middlewares/auth', () => ({
     __esModule: true,
