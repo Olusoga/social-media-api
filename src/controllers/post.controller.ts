@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { commentOnPost, createNewPost, getFeedPosts, getPostsWithCounts, getPostWithCounts, likePost} from '../services/post.service';
 import { HttpError, isHttpError } from '../utils/error-handler';
+import redisClient from '../utils/redis';
 
 export const createPost = async (req: Request, res: Response) => {
     const { content, imageUrl, videoUrl } = req.body;
@@ -73,11 +74,20 @@ export const commentPostController =async (req: Request, res: Response) => {
   }
 }
 
-export const getPostWithCountsController = async (req: Request, res: Response): Promise<void> => {
+export const getPostWithCountsController = async (req: Request, res: Response) => {
   const postId = req.params.postId;
+  const redisKey= `post:${postId}`;
 
   try {
+
+    const cachedData = await redisClient.get(redisKey);
+    if (cachedData) {
+      return res.status(200).json(JSON.parse(cachedData));
+    }
     const postWithCounts = await getPostWithCounts(postId);
+
+    await redisClient.setex(redisKey, 3600, JSON.stringify(postWithCounts))
+   
     res.json(postWithCounts);
   } catch (error) {
     console.error('Error in getPostWithCountsController:', error);
