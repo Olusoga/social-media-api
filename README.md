@@ -55,32 +55,38 @@ In this project, we've built a backend API using Express.js and TypeScript, with
 
 To run the API locally, follow these steps:
 
-1. **Clone the repository**:
+**Clone the repository:**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Olusoga/social-media-api
    cd social-media-platform-backend
 
-2. **Install dependecies**
+**Install dependecies**
    ```bash
    npm install
 
-3. **Set up environment variables:**
+**Set up environment variables:**
    Create a .env file in the root directory and add necessary environment variables like PORT, MONGODB_URI, JWT_SECRET, etc.
 
-4. **Run Server**
+**Run Server**
    ```bash
    npm start
 
-5. **Access API**
+**Access API**
    The API will be accessible at http://localhost:5000/api.
 
-# API Documentation**
-   Detailed API endpoints and their functionalities are documented here (https://documenter.getpostman.com/view/19781070/2sA3e1Bq8m).
-
-# Testing
+## API Documentation
+   Detailed API endpoints and their functionalities are documented here. https://documenter.getpostman.com/view/19781070/2sA3e1Bq8m
+   
+## Testing
    Unit Tests: Ensure code functionality with unit tests.
    Integration Tests: Verify communication between different components.
 
 **To run tests:**
 ```bash
   npm test
+
+## Contributing
+   Contributions are welcome! Fork the repository and submit a pull request with your improvements.
+
+## License
+   This project is licensed under the MIT License.
