@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { ObjectSchema } from 'joi';
+import { AnySchema, ObjectSchema } from 'joi';
 
-export const validateRequest = (schema: ObjectSchema) => {
+export const validateRequest = (schema: AnySchema) => {
   return (req: Request, res: Response, next: NextFunction) => {
     const { error } = schema.validate(req.body, { abortEarly: false });
     if (error) {
@@ -12,7 +12,7 @@ export const validateRequest = (schema: ObjectSchema) => {
   };
 };
 
-export const validate = (schema: ObjectSchema) => {
+export const validate = (schema: AnySchema) => {
   return (req: Request, res: Response, next: NextFunction) => {
     const { error } = schema.validate(req.body);
     if (error) {

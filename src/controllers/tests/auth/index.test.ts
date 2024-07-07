@@ -1,6 +1,7 @@
 import request from 'supertest';
 import{registerUser, authenticateUser} from '../../../services/user.service';
 import { server } from '../../../server';
+
 jest.mock('../../../services/user.service', () => ({
   registerUser: jest.fn(),
   authenticateUser: jest.fn(),
