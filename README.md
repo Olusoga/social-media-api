@@ -46,7 +46,7 @@ In this project, I've built a backend API using Express.js and TypeScript, with 
 - **Framework**: Express.js
 - **Language**: TypeScript
 - **Database**: MongoDB
-- **Caching**: Implemented caching mechanisms for improved response times.
+- **Caching**: Implemented caching mechanisms using Redis for improved response times.
 - **Asynchronous Programming**: Used async/await for efficient handling of concurrent requests.
 - **Error Handling**: Implemented error handling with appropriate HTTP status codes.
 - **Testing**: Unit tests for code functionality and integration tests for component communication.
@@ -76,8 +76,18 @@ Create a `.env` file in the root directory and add the necessary environment var
 
 **Run Server**
    ```bash
-   npm start
+npm start
 ```
+
+**Run Server on Development**
+   ```bash
+npm start
+```
+**Compile Typescript into javascript**
+   ```bash
+npm start
+```
+
 **Access API**
    The API will be accessible at http://localhost:5000/api.
 
@@ -92,6 +102,13 @@ Create a `.env` file in the root directory and add the necessary environment var
 ```bash
   npm test
 ```
+## Project Architecture
+The project is architected in layers to separate concerns and improve maintainability:
+
+Repository Layer: Handles data access and interacts with MongoDB.
+Service Layer: Contains business logic and interacts with the repository layer.
+Controller Layer: Handles HTTP requests, interacts with the service layer, and sends responses.
+
 ## Contributing
    Contributions are welcome! Fork the repository and submit a pull request with your improvements.
 
