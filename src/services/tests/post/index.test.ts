@@ -23,58 +23,50 @@ describe('createNewPost', () => {
   });
 
   it('should create a new post and send notifications to mentioned users', async () => {
-    const mockPost = generateMockPost();
+  const mockPost = generateMockPost();
 
-    (detectMentions as jest.Mock).mockReturnValue(mentionedUserIds);
-    (createPost as jest.Mock).mockResolvedValue(mockPost);
-    (sendNotification as jest.Mock).mockResolvedValue(undefined);
+  (detectMentions as jest.Mock).mockReturnValue(mentionedUserIds);
+  (createPost as jest.Mock).mockResolvedValue(mockPost);
+  (sendNotification as jest.Mock).mockResolvedValue(undefined);
 
-    const result = await createNewPost(authorId, content, imageUrl, videoUrl);
+  const result = await createNewPost(authorId, content, imageUrl, videoUrl);
 
-    expect(detectMentions).toHaveBeenCalledWith(content);
-    expect(createPost).toHaveBeenCalledWith({
-      author: (new ObjectId(authorId)),
-      content,
-      imageUrl,
-      videoUrl,
-    });
-    expect(sendNotification).toHaveBeenCalledTimes(mentionedUserIds.length);
-    mentionedUserIds.forEach(userId => {
-      expect(sendNotification).toHaveBeenCalledWith(
-        userId,
-        'mention',
-        `You were mentioned in a post by ${authorId}`
-      );
-    });
+  expect(detectMentions).toHaveBeenCalledWith(content);
+  expect(createPost).toHaveBeenCalledWith({
+  author: (new ObjectId(authorId)),
+  content,
+  imageUrl,
+  videoUrl,
+  });
+  expect(sendNotification).toHaveBeenCalledTimes(mentionedUserIds.length);
+  mentionedUserIds.forEach(userId => {
+  expect(sendNotification).toHaveBeenCalledWith(
+  userId,
+  'mention',
+  `You were mentioned in a post by ${authorId}`
+  );
+  });
 
-    expect(result).toEqual(mockPost);
+  expect(result).toEqual(mockPost);
   });
 
   it('should handle errors in sending notifications gracefully', async () => {
-    const mockPost = generateMockPost();
+  const mockPost = generateMockPost();
 
-    (detectMentions as jest.Mock).mockReturnValue(mentionedUserIds);
-    (createPost as jest.Mock).mockResolvedValue(mockPost);
-    (sendNotification as jest.Mock).mockRejectedValue(new Error('Notification error'));
+  (detectMentions as jest.Mock).mockReturnValue(mentionedUserIds);
+  (createPost as jest.Mock).mockResolvedValue(mockPost);
+  (sendNotification as jest.Mock).mockRejectedValue(new Error('Notification error'));
 
-    const result = await createNewPost(authorId, content, imageUrl, videoUrl);
+  const result = await createNewPost(authorId, content, imageUrl, videoUrl);
 
-    expect(detectMentions).toHaveBeenCalledWith(content);
-    expect(createPost).toHaveBeenCalledWith({
-      author: new ObjectId(authorId),
-      content,
-      imageUrl,
-      videoUrl,
-    });
-    expect(sendNotification).toHaveBeenCalledTimes(mentionedUserIds.length);
-    mentionedUserIds.forEach(userId => {
-      expect(sendNotification).toHaveBeenCalledWith(
-        userId,
-        'mention',
-        `You were mentioned in a post by ${authorId}`
-      );
-    });
+  expect(detectMentions).toHaveBeenCalledWith(content);
+  expect(createPost).toHaveBeenCalledWith({author: new ObjectId(authorId),content,imageUrl, videoUrl,});
+  expect(sendNotification).toHaveBeenCalledTimes(mentionedUserIds.length);
+  mentionedUserIds.forEach(userId => {
+  expect(sendNotification).toHaveBeenCalledWith( userId,'mention',`You were mentioned in a post by ${authorId}` );
+    }
+  );
 
-    expect(result).toEqual(mockPost);
+  expect(result).toEqual(mockPost);
   });
 });
