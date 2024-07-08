@@ -106,13 +106,13 @@ describe('Post Routes', () => {
     });
   });
 
-  describe('GET /api/posts/:postId', () => {
+  describe('GET /api/posts/:postId/count', () => {
     it('should get a post with counts', async () => {
       const postWithCounts = { id: 'testPostId', content: 'Test Content', likeCount: 10, commentCount: 5 };
       (getPostWithCounts as jest.Mock).mockResolvedValueOnce(postWithCounts);
 
       const response = await request(server)
-        .get('/api/posts/testPostId')
+        .get('/api/posts/testPostId/count')
         .set('Authorization', 'Bearer validToken');
 
       expect(response.status).toBe(200);
@@ -123,7 +123,7 @@ describe('Post Routes', () => {
       (getPostWithCounts as jest.Mock).mockRejectedValueOnce(new Error('Failed to fetch post with counts'));
 
       const response = await request(server)
-        .get('/api/posts/testPostId')
+        .get('/api/posts/testPostI/count')
         .set('Authorization', 'Bearer validToken');
 
       expect(response.status).toBe(500);
@@ -131,13 +131,13 @@ describe('Post Routes', () => {
     });
   });
 
-  describe('GET /api/posts', () => {
+  describe('GET /api/posts/count', () => {
     it('should get all posts with counts', async () => {
       const posts = [{ id: 'testPostId', content: 'Test Content', likeCount: 10, commentCount: 5 }];
       (getPostsWithCounts as jest.Mock).mockResolvedValueOnce(posts);
 
       const response = await request(server)
-        .get('/api/posts?page=1&limit=10')
+        .get('/api/posts/count?page=1&limit=10')
         .set('Authorization', 'Bearer validToken');
 
       expect(response.status).toBe(200);
@@ -148,7 +148,7 @@ describe('Post Routes', () => {
       (getPostsWithCounts as jest.Mock).mockRejectedValueOnce(new Error('Failed to fetch posts'));
 
       const response = await request(server)
-        .get('/api/posts?page=1&limit=10')
+        .get('/api/posts/count?page=1&limit=10')
         .set('Authorization', 'Bearer validToken');
 
       expect(response.status).toBe(500);

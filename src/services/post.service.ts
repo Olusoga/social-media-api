@@ -2,7 +2,7 @@ import { Server as SocketIOServer } from 'socket.io';
 import { createPost, findPostById, updatePost, findPostsByAuthorIds, findAllPosts } from '../repositories/post.repository';
 import { findUserById } from '../repositories/user.repository';
 import { IPost } from '../models/post.model';
-import { HttpError } from '../utils/error-handler';
+import { HttpError, isHttpError } from '../utils/error-handler';
 import mongoose, { Types } from 'mongoose';
 import { sendNotification } from './notification.service';
 import { detectMentions } from '../utils/detectmentions';
@@ -132,35 +132,29 @@ export const commentOnPost = async (postId: string, userId: string, text: string
 }
 
 export const getPostWithCounts = async (postId: string): Promise<any> => {
-  try {
-    const post = await findPostById(postId)
-    if (!post) {
-       throw new HttpError(404, 'Post not found');
-    }
-
-    // Calculate number of likes and comments
-    const likeCount = post.likes.length;
-    const commentCount = post.comments.length;
-
-    // Construct response object with post details and counts
-    const response = {
-      _id: post._id,
-      author: post.author,
-      content: post.content,
-      imageUrl: post.imageUrl,
-      videoUrl: post.videoUrl,
-      likes : post.likes,
-      comment:post.comments,
-      likesCount: likeCount,
-      commentsCount: commentCount,
-    };
-
-    return response;
-  } catch (error) {
-    console.error('Error fetching post with counts:', error);
-    throw new HttpError(500, 'Failed to fetch post with counts');
+  const post = await findPostById(postId);
+  if (!post) {
+    throw new HttpError(404, 'Post not found');
   }
+
+  const likeCount = post.likes.length;
+  const commentCount = post.comments.length;
+
+  const response = {
+    _id: post._id,
+    author: post.author,
+    content: post.content,
+    imageUrl: post.imageUrl,
+    videoUrl: post.videoUrl,
+    likes: post.likes,
+    comments: post.comments,
+    likesCount: likeCount,
+    commentsCount: commentCount,
+  };
+
+  return response;
 };
+
 
 export const getPostsWithCounts = async (page: number, limit: number): Promise<any[]> => {
   const posts = await findAllPosts(page, limit);

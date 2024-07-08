@@ -11,17 +11,14 @@ export const createUser = async (userData: Partial<IUser>): Promise<IUser> => {
   };
 
 export const findUserByEmail = async (email: string): Promise<IUser | null> => {
-  return User.findOne({ email });
+   return User.findOne({ email });
 };
 
 export const findUserById = async (id: string): Promise<IUser | null> => {
-  return User.findById(id);
+   return User.findById(id);
 };
 
 export const followUserRepo = async (userId: string, userToFollowId: string): Promise<void> => {
   await User.findByIdAndUpdate(userId, { $addToSet: { following: userToFollowId } }).exec();
 }
 
-export function prototype(prototype: any, arg1: string) {
-    throw new Error('Function not implemented.');
-}
