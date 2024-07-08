@@ -3,7 +3,7 @@ import { HttpError } from '../utils/error-handler';
 
 export const errorHandler = (
   error: any,
-  _: Request,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {

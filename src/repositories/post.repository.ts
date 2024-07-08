@@ -8,7 +8,7 @@ export const createPost = async (postData: Partial<IPost>): Promise<IPost> => {
 
 export const findAllPosts = async (page: number, limit: number): Promise<IPost[]> =>{
   const skip = (page - 1) * limit;
- return Post.find()
+  return Post.find()
     .skip(skip)
     .limit(limit)
     .populate('author', 'username')
